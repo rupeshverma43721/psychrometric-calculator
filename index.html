@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Psychrometric Calculator</title>
+  <title>Heat Load Calculator (Consolidated)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet" />
@@ -13,8 +13,8 @@
   <main class="page">
     <header class="title-strip">
       <h1>
-        Psychrometric Calculator
-        <span class="dev-note">(In developing phase - incorrect result)</span>
+        Heat Load Calculator
+        <span class="dev-note">(Consolidated + Air + Heat Load cal logic)</span>
       </h1>
     </header>
 
@@ -59,23 +59,125 @@
         </section>
 
         <section class="form-section">
-          <h2>Air Condition Inputs</h2>
-          <p class="form-note">Required: Dry Bulb Temperature + at least one of Wet Bulb / Relative Humidity / Dewpoint.</p>
+          <h2>Consolidated Inputs: Internal and External Conditions</h2>
           <div class="field-grid two-col">
-            <label for="dryBulbTemp">Dry Bulb Temp (deg C)</label>
-            <input id="dryBulbTemp" name="dryBulbTemp" type="number" step="0.1" placeholder="32.0" value="31.8" required />
+            <label for="b9AmbientDbt">Ambient dry bulb temperature (B9) [deg C]</label>
+            <input id="b9AmbientDbt" name="b9AmbientDbt" type="number" step="0.1" value="35.2" required />
 
-            <label for="wetBulbTemp">Wet Bulb Temp (deg C)</label>
-            <input id="wetBulbTemp" name="wetBulbTemp" type="number" step="0.1" placeholder="Optional" value="24.6" />
+            <label for="f9Passengers">No of passengers (F9) [Nos]</label>
+            <input id="f9Passengers" name="f9Passengers" type="number" step="1" value="334" required />
 
-            <label for="relativeHumidity">Relative Humidity (%)</label>
-            <input id="relativeHumidity" name="relativeHumidity" type="number" step="0.1" min="0" max="100" placeholder="Optional" />
+            <label for="b10AmbientRh">Ambient Relative Humidity (B10) [%]</label>
+            <input id="b10AmbientRh" name="b10AmbientRh" type="number" step="0.1" value="60" required />
 
-            <label for="dewPointTemp">Dewpoint Temp (deg C)</label>
-            <input id="dewPointTemp" name="dewPointTemp" type="number" step="0.1" placeholder="Optional" />
+            <label for="f10FreshAir">Fresh air (F10) [CMH]</label>
+            <input id="f10FreshAir" name="f10FreshAir" type="number" step="1" value="4000" required />
 
-            <label for="altitude">Altitude Above Sea Level (m)</label>
-            <input id="altitude" name="altitude" type="number" step="1" value="72" />
+            <label for="b11Altitude">Altitude (B11) [m]</label>
+            <input id="b11Altitude" name="b11Altitude" type="number" step="1" value="1000" required />
+
+            <label for="f11SolarRadiation">Solar radiation (F11) [W/m2]</label>
+            <input id="f11SolarRadiation" name="f11SolarRadiation" type="number" step="1" value="1000" required />
+
+            <label for="b12InternalSensible">Internal Load (Sensible) (B12) [kW]</label>
+            <input id="b12InternalSensible" name="b12InternalSensible" type="number" step="0.01" value="12" required />
+
+            <label for="f12TravelSpeed">Travel Speed (F12) [km/h]</label>
+            <input id="f12TravelSpeed" name="f12TravelSpeed" type="number" step="0.1" value="90" required />
+
+            <label for="b13InternalLatent">Internal Load (Latent) (B13) [kW]</label>
+            <input id="b13InternalLatent" name="b13InternalLatent" type="number" step="0.01" value="5.48" required />
+
+            <label for="f13Co2Outside">CO2 concentration outside (F13) [PPM]</label>
+            <input id="f13Co2Outside" name="f13Co2Outside" type="number" step="1" value="400" required />
+
+            <label for="b14DuctLoss">Pressure losses duct (B14) [Pa]</label>
+            <input id="b14DuctLoss" name="b14DuctLoss" type="number" step="1" value="200" required />
+
+            <label for="f14Co2Emission">CO2 emission per passenger (F14) [PPM]</label>
+            <input id="f14Co2Emission" name="f14Co2Emission" type="number" step="0.1" value="17" required />
+          </div>
+        </section>
+
+        <section class="form-section">
+          <h2>Consolidated Inputs: Saloon Details and K-values</h2>
+          <div class="field-grid two-col">
+            <label for="b18Length">Length (B18) [m]</label>
+            <input id="b18Length" name="b18Length" type="number" step="0.01" value="20.8" required />
+
+            <label for="f18KRoof">Roof k-value (F18) [W/m2/K]</label>
+            <input id="f18KRoof" name="f18KRoof" type="number" step="0.01" value="2" required />
+
+            <label for="b19Width">Width (B19) [m]</label>
+            <input id="b19Width" name="b19Width" type="number" step="0.01" value="2.88" required />
+
+            <label for="f19KSideWall">Side wall k-value (F19) [W/m2/K]</label>
+            <input id="f19KSideWall" name="f19KSideWall" type="number" step="0.01" value="2" required />
+
+            <label for="b20Height">Height (B20) [m]</label>
+            <input id="b20Height" name="b20Height" type="number" step="0.01" value="2.1" required />
+
+            <label for="f20KFloor">Floor k-value (F20) [W/m2/K]</label>
+            <input id="f20KFloor" name="f20KFloor" type="number" step="0.01" value="2" required />
+
+            <label for="b21WindowArea">Window area per side (B21) [m2]</label>
+            <input id="b21WindowArea" name="b21WindowArea" type="number" step="0.01" value="9.6" required />
+
+            <label for="f21KWindow">Window k-value (F21) [W/m2/K]</label>
+            <input id="f21KWindow" name="f21KWindow" type="number" step="0.01" value="3.2" required />
+
+            <label for="b22DoorArea">Door area per side (B22) [m2]</label>
+            <input id="b22DoorArea" name="b22DoorArea" type="number" step="0.01" value="0" required />
+
+            <label for="f22KFront">Front k-value (F22) [W/m2/K]</label>
+            <input id="f22KFront" name="f22KFront" type="number" step="0.01" value="0" required />
+
+            <label for="b23AbsSideWall">Absorption side wall (B23)</label>
+            <input id="b23AbsSideWall" name="b23AbsSideWall" type="number" step="0.01" value="0" required />
+
+            <label for="f23KDoor">Door k-value (F23) [W/m2/K]</label>
+            <input id="f23KDoor" name="f23KDoor" type="number" step="0.01" value="2" required />
+
+            <label for="b24AbsRoof">Absorption roof (B24)</label>
+            <input id="b24AbsRoof" name="b24AbsRoof" type="number" step="0.01" value="0" required />
+          </div>
+        </section>
+
+        <section class="form-section">
+          <h2>Consolidated Inputs: Cooling Unit and Internal Condition</h2>
+          <div class="field-grid two-col">
+            <label for="f27HvacUnits">No of HVAC unit per car (F27)</label>
+            <input id="f27HvacUnits" name="f27HvacUnits" type="number" step="1" value="2" required />
+
+            <label for="b28Refrigerant">Refrigerant (B28)</label>
+            <input id="b28Refrigerant" name="b28Refrigerant" type="text" value="R407C" required />
+
+            <label for="b29Frequency">Operating frequency (B29) [Hz]</label>
+            <input id="b29Frequency" name="b29Frequency" type="number" step="0.1" value="50" required />
+
+            <label for="b30CondenserAir">Condenser air volume (B30) [m3/h]</label>
+            <input id="b30CondenserAir" name="b30CondenserAir" type="number" step="1" value="21000" required />
+
+            <label for="b32SupplyAirVolume">Supply air volume (B32) [m3/h]</label>
+            <input id="b32SupplyAirVolume" name="b32SupplyAirVolume" type="number" step="1" value="4300" required />
+
+            <label for="b33SupplyAirTemp">Supply air temperature (B33) [deg C]</label>
+            <input id="b33SupplyAirTemp" name="b33SupplyAirTemp" type="number" step="0.1" value="25" required />
+
+            <label for="b42VentSensible">Ventilation performance sensible (B42) [kW]</label>
+            <input id="b42VentSensible" name="b42VentSensible" type="number" step="0.01" value="0" required />
+
+            <label for="f42VentLatent">Ventilation performance latent (F42) [kW]</label>
+            <input id="f42VentLatent" name="f42VentLatent" type="number" step="0.01" value="0" required />
+
+            <label for="b46FreshAirRate">Fresh air rate (B46) [m3/h/person]</label>
+            <input id="b46FreshAirRate" name="b46FreshAirRate" type="number" step="0.1" value="12" required />
+
+            <label for="b47InternalRh">Internal Relative humidity (B47) [%]</label>
+            <input id="b47InternalRh" name="b47InternalRh" type="number" step="0.1" value="60" required />
+
+            <label for="b48SaloonTemp">Saloon temperature (B48) [deg C]</label>
+            <input id="b48SaloonTemp" name="b48SaloonTemp" type="number" step="0.1" value="25" required />
           </div>
         </section>
 
@@ -91,14 +193,14 @@
 
     <section id="result-section" class="result-section hidden" aria-live="polite">
       <div class="result-head">
-        <h2>Result Preview</h2>
+        <h2>Workbook Result Preview</h2>
         <p id="result-meta">--</p>
       </div>
 
       <article class="report-header-card">
         <div class="report-header-top">
           <p class="report-label">Official Report Header</p>
-          <h3>Psychrometric Evaluation Report</h3>
+          <h3>Heat Load Calculation Report</h3>
         </div>
         <div class="report-meta-grid">
           <div class="meta-item">
@@ -137,7 +239,7 @@
       </div>
 
       <div class="table-card">
-        <h3>Calculated Results</h3>
+        <h3>Calculated Results (Consolidated Outputs)</h3>
         <div class="table-wrap">
           <table class="result-table">
             <thead>
