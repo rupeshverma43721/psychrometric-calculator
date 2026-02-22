@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Psychrometric Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="title-strip">
+      <h1>
+        Psychrometric Calculator
+        <span class="dev-note">(In developing phase - incorrect result)</span>
+      </h1>
+    </header>
+
+    <section class="form-card">
+      <form id="psychrometric-form" novalidate>
+        <section class="form-section">
+          <h2>Report Details</h2>
+          <div class="field-grid two-col">
+            <label for="companyName">Company Name</label>
+            <input id="companyName" name="companyName" type="text" placeholder="ABC Engineering Pvt Ltd" value="ABC Engineering Pvt Ltd" />
+
+            <label for="projectName">Project Name</label>
+            <input id="projectName" name="projectName" type="text" placeholder="Campus HVAC Audit" value="Campus HVAC Audit" />
+
+            <label for="revisionNumber">Revision Number</label>
+            <input id="revisionNumber" name="revisionNumber" type="text" placeholder="Rev-01" value="Rev-01" />
+
+            <label for="reportDate">Report Date</label>
+            <input id="reportDate" name="reportDate" type="date" />
+          </div>
+        </section>
+
+        <section class="form-section">
+          <h2>Air Condition Inputs</h2>
+          <p class="form-note">Required: Dry Bulb Temperature + at least one of Wet Bulb / Relative Humidity / Dewpoint.</p>
+          <div class="field-grid two-col">
+            <label for="dryBulbTemp">Dry Bulb Temp (deg C)</label>
+            <input id="dryBulbTemp" name="dryBulbTemp" type="number" step="0.1" placeholder="32.0" value="31.8" required />
+
+            <label for="wetBulbTemp">Wet Bulb Temp (deg C)</label>
+            <input id="wetBulbTemp" name="wetBulbTemp" type="number" step="0.1" placeholder="Optional" value="24.6" />
+
+            <label for="relativeHumidity">Relative Humidity (%)</label>
+            <input id="relativeHumidity" name="relativeHumidity" type="number" step="0.1" min="0" max="100" placeholder="Optional" />
+
+            <label for="dewPointTemp">Dewpoint Temp (deg C)</label>
+            <input id="dewPointTemp" name="dewPointTemp" type="number" step="0.1" placeholder="Optional" />
+
+            <label for="altitude">Altitude Above Sea Level (m)</label>
+            <input id="altitude" name="altitude" type="number" step="1" value="72" />
+          </div>
+        </section>
+
+        <div class="action-row">
+          <button type="submit" class="btn btn-primary">Calculate Result</button>
+          <button type="button" class="btn btn-export" id="export-pdf" disabled>Export to PDF</button>
+          <button type="reset" class="btn btn-ghost">Reset Form</button>
+        </div>
+
+        <p id="form-message" class="message" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section id="result-section" class="result-section hidden" aria-live="polite">
+      <div class="result-head">
+        <h2>Result Preview</h2>
+        <p id="result-meta">--</p>
+      </div>
+
+      <article class="report-header-card">
+        <div class="report-header-top">
+          <p class="report-label">Official Report Header</p>
+          <h3>Psychrometric Evaluation Report</h3>
+        </div>
+        <div class="report-meta-grid">
+          <div class="meta-item">
+            <span>Company Name</span>
+            <strong id="preview-company">--</strong>
+          </div>
+          <div class="meta-item">
+            <span>Project Name</span>
+            <strong id="preview-project">--</strong>
+          </div>
+          <div class="meta-item">
+            <span>Revision Number</span>
+            <strong id="preview-revision">--</strong>
+          </div>
+          <div class="meta-item">
+            <span>Report Date</span>
+            <strong id="preview-report-date">--</strong>
+          </div>
+        </div>
+      </article>
+
+      <div class="table-card">
+        <h3>Submitted Variable Inputs</h3>
+        <div class="table-wrap">
+          <table class="result-table">
+            <thead>
+              <tr>
+                <th class="sno-col">S.No</th>
+                <th>Field</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody id="input-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <h3>Calculated Results</h3>
+        <div class="table-wrap">
+          <table class="result-table">
+            <thead>
+              <tr>
+                <th class="sno-col">S.No</th>
+                <th>Parameter</th>
+                <th>Symbol</th>
+                <th>Value</th>
+                <th>Unit</th>
+              </tr>
+            </thead>
+            <tbody id="results-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
