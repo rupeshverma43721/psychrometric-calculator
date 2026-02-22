@@ -1,6 +1,7 @@
 (function () {
   const form = document.getElementById("psychrometric-form");
   const messageEl = document.getElementById("form-message");
+  const calculateBtn = document.getElementById("calculate-result");
   const exportBtn = document.getElementById("export-pdf");
   const resultSection = document.getElementById("result-section");
   const resultMetaEl = document.getElementById("result-meta");
@@ -11,6 +12,14 @@
   const previewProjectEl = document.getElementById("preview-project");
   const previewRevisionEl = document.getElementById("preview-revision");
   const previewReportDateEl = document.getElementById("preview-report-date");
+  const metricPageViewsEl = document.getElementById("metric-page-views");
+  const metricCalculateClicksEl = document.getElementById("metric-calculate-clicks");
+  const metricExportClicksEl = document.getElementById("metric-export-clicks");
+
+  const counterApiBase = "https://api.countapi.xyz";
+  const counterNamespace = `psychrometric-${(window.location.hostname || "local")
+    .toLowerCase()
+    .replace(/[^a-z0-9-]+/g, "-")}`;
 
   let lastRun = null;
 
@@ -20,6 +29,69 @@
     const month = String(now.getMonth() + 1).padStart(2, "0");
     const day = String(now.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
+  }
+
+  function formatCounter(value) {
+    if (!Number.isFinite(value)) {
+      return "--";
+    }
+    return value.toLocaleString();
+  }
+
+  function renderCounter(element, value) {
+    if (!element) {
+      return;
+    }
+    element.textContent = formatCounter(value);
+  }
+
+  function counterUrl(mode, key) {
+    return `${counterApiBase}/${mode}/${encodeURIComponent(counterNamespace)}/${encodeURIComponent(key)}`;
+  }
+
+  async function getCounterValue(key) {
+    try {
+      const response = await fetch(counterUrl("get", key), { cache: "no-store" });
+      if (!response.ok) {
+        return 0;
+      }
+      const payload = await response.json();
+      return Number.isFinite(payload.value) ? payload.value : 0;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  async function hitCounterValue(key) {
+    try {
+      const response = await fetch(counterUrl("hit", key), { cache: "no-store" });
+      if (!response.ok) {
+        return null;
+      }
+      const payload = await response.json();
+      return Number.isFinite(payload.value) ? payload.value : null;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  async function loadUsageCounters() {
+    const [calculateClicks, exportClicks, pageViews] = await Promise.all([
+      getCounterValue("calculate_clicks"),
+      getCounterValue("export_clicks"),
+      hitCounterValue("page_views")
+    ]);
+
+    renderCounter(metricCalculateClicksEl, calculateClicks);
+    renderCounter(metricExportClicksEl, exportClicks);
+    renderCounter(metricPageViewsEl, pageViews);
+  }
+
+  async function trackClickCounter(counterKey, metricElement) {
+    const value = await hitCounterValue(counterKey);
+    if (value !== null) {
+      renderCounter(metricElement, value);
+    }
   }
 
   function setMessage(text, tone) {
@@ -758,6 +830,7 @@
 
     try {
       runCalculation();
+      void trackClickCounter("calculate_clicks", metricCalculateClicksEl);
     } catch (error) {
       exportBtn.disabled = true;
       setMessage(error.message, "error");
@@ -772,6 +845,7 @@
 
       downloadPdf(lastRun.reportData);
       setMessage("PDF exported successfully.", "ok");
+      void trackClickCounter("export_clicks", metricExportClicksEl);
     } catch (error) {
       setMessage(error.message, "error");
     }
@@ -786,4 +860,7 @@
 
   form.elements.reportDate.value = todayAsInputDate();
   resetView();
+  if (calculateBtn && exportBtn) {
+    void loadUsageCounters();
+  }
 })();

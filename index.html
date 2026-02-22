@@ -18,6 +18,27 @@
       </h1>
     </header>
 
+    <section class="usage-card" aria-live="polite">
+      <div class="usage-head">
+        <h2>Live Usage</h2>
+        <p>Public counters for page visits and button clicks.</p>
+      </div>
+      <div class="usage-grid">
+        <article class="usage-item">
+          <span>Page Views</span>
+          <strong id="metric-page-views">--</strong>
+        </article>
+        <article class="usage-item">
+          <span>Calculate Clicks</span>
+          <strong id="metric-calculate-clicks">--</strong>
+        </article>
+        <article class="usage-item">
+          <span>PDF Export Clicks</span>
+          <strong id="metric-export-clicks">--</strong>
+        </article>
+      </div>
+    </section>
+
     <section class="form-card">
       <form id="psychrometric-form" novalidate>
         <section class="form-section">
@@ -59,7 +80,7 @@
         </section>
 
         <div class="action-row">
-          <button type="submit" class="btn btn-primary">Calculate Result</button>
+          <button id="calculate-result" type="submit" class="btn btn-primary">Calculate Result</button>
           <button type="button" class="btn btn-export" id="export-pdf" disabled>Export to PDF</button>
           <button type="reset" class="btn btn-ghost">Reset Form</button>
         </div>

@@ -97,6 +97,60 @@ body {
   vertical-align: middle;
 }
 
+.usage-card {
+  border: 1px solid #cad9ea;
+  border-radius: 11px;
+  background: linear-gradient(180deg, rgba(247, 251, 255, 0.94), rgba(255, 255, 255, 1));
+  box-shadow: var(--shadow-soft);
+  padding: 0.72rem;
+}
+
+.usage-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 0.55rem;
+}
+
+.usage-head h2 {
+  margin: 0;
+  font-size: 0.94rem;
+  color: #1e4069;
+}
+
+.usage-head p {
+  margin: 0;
+  color: #58708f;
+  font-size: 0.78rem;
+}
+
+.usage-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.usage-item {
+  border: 1px solid #d0deec;
+  border-radius: 9px;
+  background: #ffffff;
+  padding: 0.52rem 0.56rem;
+}
+
+.usage-item span {
+  display: block;
+  color: #5b7291;
+  font-size: 0.74rem;
+}
+
+.usage-item strong {
+  display: block;
+  margin-top: 0.2rem;
+  color: #173c63;
+  font-size: 1rem;
+}
+
 .form-card,
 .result-section {
   border: 1px solid var(--line);
@@ -497,6 +551,10 @@ button:focus-visible {
   .report-meta-grid {
     grid-template-columns: 1fr 1fr;
   }
+
+  .usage-grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 @media (max-width: 620px) {
@@ -519,6 +577,16 @@ button:focus-visible {
   }
 
   .report-meta-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .usage-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .usage-grid {
     grid-template-columns: 1fr;
   }
 
