@@ -1,0 +1,211 @@
+:root {
+  --paper: #f4f1e6;
+  --panel: #f9f8f2;
+  --line: #3d3b35;
+  --header: #ead6a8;
+  --input-row: #bfe6bf;
+  --output-row: #d9f2d9;
+  --highlight: #f5e36d;
+  --title: #1f1f1f;
+  --text: #20211f;
+  --ok: #1f6a44;
+  --warn: #9a4d0e;
+  --radius: 8px;
+  --shadow: 0 10px 20px rgba(40, 32, 20, 0.14);
+  --shadow-soft: 0 6px 12px rgba(40, 32, 20, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 14% 18%, #fffdf4 0%, rgba(255, 253, 244, 0.65) 26%, transparent 48%),
+    radial-gradient(circle at 85% 85%, rgba(231, 243, 235, 0.55) 0%, rgba(231, 243, 235, 0.2) 20%, transparent 50%),
+    linear-gradient(148deg, #f6efde 0%, #ede4cf 52%, #e5dcc8 100%);
+  color: var(--text);
+  font-family: "Source Sans 3", "Segoe UI", sans-serif;
+}
+
+.sheet-page {
+  width: min(1420px, 96vw);
+  margin: 0.9rem auto 1.6rem;
+}
+
+.sheet-title {
+  margin-bottom: 0.7rem;
+  border: 2px solid var(--line);
+  background: linear-gradient(140deg, #fcfbf7, #f2ecdd);
+  border-radius: var(--radius);
+  padding: 0.6rem 0.9rem;
+  box-shadow: var(--shadow);
+}
+
+.sheet-title h1 {
+  margin: 0;
+  font-family: "Libre Baskerville", Georgia, serif;
+  font-size: clamp(1.05rem, 2.15vw, 1.65rem);
+  letter-spacing: 0.02em;
+  color: var(--title);
+}
+
+.sheet-title h1 span {
+  font-size: 0.8em;
+  margin-left: 0.35rem;
+}
+
+.sheet-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+}
+
+.sheet-panel {
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  background: linear-gradient(160deg, #f8f4e8, #efe7d4);
+  padding: 0.55rem;
+  box-shadow: var(--shadow);
+}
+
+.sheet-panel > h2 {
+  margin: 0 0 0.45rem;
+  font-family: "Libre Baskerville", Georgia, serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.03em;
+}
+
+.sheet-block {
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: linear-gradient(160deg, #fcfbf6, #f4efdf);
+  margin-bottom: 0.56rem;
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  transition: box-shadow 0.16s ease, transform 0.16s ease;
+}
+
+.sheet-block:hover {
+  box-shadow: 0 10px 18px rgba(40, 32, 20, 0.13);
+  transform: translateY(-1px);
+}
+
+.sheet-block h3 {
+  margin: 0;
+  padding: 0.42rem 0.55rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  background: var(--header);
+  border-bottom: 1px solid var(--line);
+}
+
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.sheet-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 520px;
+}
+
+.sheet-table th,
+.sheet-table td {
+  border: 1px solid var(--line);
+  padding: 0.28rem 0.42rem;
+  font-size: 0.86rem;
+  line-height: 1.2;
+}
+
+.sheet-table th {
+  background: #eeddba;
+  text-align: left;
+  font-weight: 700;
+}
+
+.sheet-table tbody tr td {
+  background: var(--input-row);
+}
+
+.output-table tbody tr td,
+#airflow-outputs tr td {
+  background: var(--output-row);
+}
+
+.sheet-table input {
+  width: 100%;
+  border: 1px solid #5a584f;
+  background: rgba(142, 108, 182, 0.18);
+  color: #1f1f1f;
+  border-radius: 4px;
+  min-height: 30px;
+  padding: 0.22rem 0.35rem;
+  font: inherit;
+  transition: border-color 0.16s ease, background-color 0.16s ease;
+}
+
+.sheet-table input:hover {
+  border-color: #3d3b35;
+}
+
+.sheet-table input:focus {
+  outline: 2px solid #7a6b2c;
+  outline-offset: 0;
+}
+
+.sheet-table input.edited {
+  background: #ffffff;
+}
+
+.sheet-table input[readonly] {
+  background: rgba(142, 108, 182, 0.16);
+  color: #4f4b58;
+}
+
+.row-highlight td {
+  background: var(--highlight) !important;
+  font-weight: 700;
+}
+
+.row-strong td {
+  font-weight: 700;
+}
+
+@media (max-width: 1024px) {
+  .sheet-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .sheet-panel > h2 {
+    font-size: 1.02rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .sheet-page {
+    width: 98vw;
+    margin: 0.55rem auto 1rem;
+  }
+
+  .sheet-title {
+    padding: 0.5rem 0.55rem;
+  }
+
+  .sheet-title h1 {
+    font-size: 0.98rem;
+    line-height: 1.35;
+  }
+
+  .sheet-block h3 {
+    font-size: 0.88rem;
+  }
+
+  .sheet-table th,
+  .sheet-table td {
+    font-size: 0.8rem;
+  }
+}
