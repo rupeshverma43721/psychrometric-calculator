@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Air-Side Calculators</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="air-side-calculators.css" />
+  <link rel="stylesheet" href="calculator-dock.css" />
+</head>
+<body>
+  <main class="air-page">
+    <section id="relative-humidity" class="mini-card">
+      <h1>Relative Humidity Calculator</h1>
+      <table class="mini-table">
+        <tbody>
+          <tr>
+            <td class="label">Temperature (DB) =</td>
+            <td class="value-cell"><input id="rh-dbt" type="number" step="0.1" value="25.0" /></td>
+            <td class="unit">Deg C</td>
+          </tr>
+          <tr>
+            <td class="label">Temperature (WB) =</td>
+            <td class="value-cell"><input id="rh-wbt" type="number" step="0.1" value="16.0" /></td>
+            <td class="unit">Deg C</td>
+          </tr>
+          <tr>
+            <td class="label">Relative Humidity =</td>
+            <td class="value-cell output"><span id="rh-output">38.0</span></td>
+            <td class="unit">% RH</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="bypass-factor" class="mini-card">
+      <h1>By Pass Factor Calculator</h1>
+      <table class="mini-table">
+        <tbody>
+          <tr>
+            <td class="label">Suction Air Temp =</td>
+            <td class="value-cell"><input id="bf-suction" type="number" step="0.1" value="30.0" /></td>
+            <td class="unit">Deg C</td>
+          </tr>
+          <tr>
+            <td class="label">Fresh Air Temp =</td>
+            <td class="value-cell"><input id="bf-fresh" type="number" step="0.1" value="44.0" /></td>
+            <td class="unit">Deg C</td>
+          </tr>
+          <tr>
+            <td class="label">Recirculation Air Temp =</td>
+            <td class="value-cell"><input id="bf-recirculation" type="number" step="0.1" value="25.0" /></td>
+            <td class="unit">Deg C</td>
+          </tr>
+          <tr>
+            <td class="label">By Pass Factor =</td>
+            <td class="value-cell output"><span id="bf-output">26%</span></td>
+            <td class="unit">%</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="air-side-calculators.js"></script>
+  <script src="calculator-dock.js"></script>
+</body>
+</html>

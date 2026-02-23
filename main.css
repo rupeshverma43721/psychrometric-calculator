@@ -1,0 +1,143 @@
+:root {
+  --bg: #eee5ce;
+  --surface: #faf7ee;
+  --surface-strong: #f4e9ca;
+  --text: #1f1b16;
+  --muted: #5a5348;
+  --line: #3d3529;
+  --accent: #0d5f3c;
+  --accent-soft: #e7f4ec;
+  --radius: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 14% 10%, #fffaf0 0%, #f0e8d3 45%, #e4d9bf 100%);
+  font-family: "Source Sans 3", "Segoe UI", sans-serif;
+  color: var(--text);
+}
+
+.home-page {
+  width: min(1180px, 94vw);
+  margin: 1rem auto 1.5rem;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.home-hero {
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(138deg, rgba(255, 252, 243, 0.98), rgba(246, 236, 209, 0.98));
+  padding: 0.9rem 1rem;
+}
+
+.home-hero h1 {
+  margin: 0;
+  font-family: "Libre Baskerville", Georgia, serif;
+  font-size: clamp(1.2rem, 2.7vw, 1.82rem);
+  letter-spacing: 0.02em;
+}
+
+.home-hero p {
+  margin: 0.3rem 0 0;
+  color: var(--muted);
+  font-size: 0.96rem;
+}
+
+.catalog-panel {
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 0.75rem;
+}
+
+.catalog-panel h2 {
+  margin: 0 0 0.58rem;
+  font-family: "Libre Baskerville", Georgia, serif;
+  font-size: 1.02rem;
+}
+
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.74rem;
+}
+
+.tool-card {
+  border: 2px solid #3e372c;
+  border-radius: 11px;
+  background:
+    linear-gradient(160deg, #fffef8, #f7f0de);
+  padding: 0.78rem;
+}
+
+.tool-type {
+  margin: 0;
+  display: inline-block;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #284738;
+  border: 1px solid #33634b;
+  border-radius: 999px;
+  background: #e5f4eb;
+  padding: 0.1rem 0.45rem;
+}
+
+.tool-card h3 {
+  margin: 0.45rem 0 0;
+  font-family: "Libre Baskerville", Georgia, serif;
+  font-size: 1.01rem;
+}
+
+.tool-card p {
+  margin: 0.42rem 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.tool-actions {
+  margin-top: 0.7rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.46rem;
+}
+
+.card-cta,
+.card-ghost {
+  text-decoration: none;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 0.2rem 0.58rem;
+  border: 1px solid #2f6d4d;
+}
+
+.card-cta {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.card-ghost {
+  background: #ffffff;
+  color: #284735;
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .home-page {
+    width: 96vw;
+  }
+
+  .home-hero,
+  .catalog-panel,
+  .tool-card {
+    padding: 0.68rem;
+  }
+}

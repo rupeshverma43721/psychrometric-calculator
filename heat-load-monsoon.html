@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heat Load Calculation - Monsoon MEMU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="calculator-dock.css" />
+</head>
+<body data-calculator-dock="enabled">
+  <main class="sheet-page">
+    <header class="sheet-title">
+      <h1>HEAT LOAD CALCULATION, MONSOON <span>MEMU @ 38 deg C, 60%RH</span></h1>
+    </header>
+
+    <section class="sheet-columns">
+      <section class="sheet-panel">
+        <h2>INPUTS</h2>
+
+        <article class="sheet-block">
+          <h3>Ambient Condition</h3>
+          <div class="table-wrap">
+            <table class="sheet-table">
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Value</th>
+                  <th>Unit</th>
+                </tr>
+              </thead>
+              <tbody id="ambient-inputs"></tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="sheet-block">
+          <h3>Coach Temp / Human Heat Generation</h3>
+          <div class="table-wrap">
+            <table class="sheet-table">
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Value</th>
+                  <th>Unit</th>
+                </tr>
+              </thead>
+              <tbody id="coach-heat-inputs"></tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="sheet-block">
+          <h3>RMPU Load Details</h3>
+          <div class="table-wrap">
+            <table class="sheet-table">
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Value</th>
+                  <th>Unit</th>
+                </tr>
+              </thead>
+              <tbody id="rmpu-load-inputs"></tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="sheet-block">
+          <h3>RMPU Dimensions</h3>
+          <div class="table-wrap">
+            <table class="sheet-table">
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Value</th>
+                  <th>Unit</th>
+                </tr>
+              </thead>
+              <tbody id="rmpu-dimension-inputs"></tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="sheet-block">
+          <h3>Coefficient of Heat Transfer</h3>
+          <div class="table-wrap">
+            <table class="sheet-table">
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Value</th>
+                  <th>Unit</th>
+                </tr>
+              </thead>
+              <tbody id="heat-transfer-inputs"></tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+
+      <section class="sheet-panel">
+        <h2>OUTPUTS</h2>
+
+        <article class="sheet-block">
+          <h3>Overview Heat Gains (Summary)</h3>
+          <div class="table-wrap">
+            <table class="sheet-table output-table">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Sensible (kW)</th>
+                  <th>Latent (kW)</th>
+                  <th>Total (kW)</th>
+                  <th>Sensible (TR)</th>
+                  <th>Latent (TR)</th>
+                  <th>Total (TR)</th>
+                </tr>
+              </thead>
+              <tbody id="overview-outputs"></tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="sheet-block">
+          <h3>Total Load Summary</h3>
+          <div class="table-wrap">
+            <table class="sheet-table output-table">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Sensible (kW)</th>
+                  <th>Latent (kW)</th>
+                  <th>Total (kW)</th>
+                  <th>Sensible (TR)</th>
+                  <th>Latent (TR)</th>
+                  <th>Total (TR)</th>
+                </tr>
+              </thead>
+              <tbody id="summary-outputs"></tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="sheet-block">
+          <h3>Air Flow Outputs</h3>
+          <div class="table-wrap">
+            <table class="sheet-table">
+              <thead>
+                <tr>
+                  <th>Output Variable</th>
+                  <th>Value</th>
+                  <th>Unit</th>
+                </tr>
+              </thead>
+              <tbody id="airflow-outputs"></tbody>
+            </table>
+          </div>
+        </article>
+
+      </section>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+  <script src="calculator-dock.js"></script>
+</body>
+</html>
